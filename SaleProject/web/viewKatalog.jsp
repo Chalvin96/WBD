@@ -17,7 +17,7 @@
     <script type="text/javascript" src="viewKatalog.js"></script>
 </head>
     <body>
-    <div id="wrapper">
+        
             <jsp:include page="header.jsp" />
             <h1>What are you going to sell today?</h1>
             <hr />
@@ -33,8 +33,7 @@
                             <input type="radio" name="filter" value="store">store<br>
                     </div>
             </form>
-
-
+           
             <%
             try {
                 marketplaceservice.MarketplacceService service = new marketplaceservice.MarketplacceService();
@@ -44,17 +43,15 @@
                 java.lang.String password = "";
                 java.lang.String search = "";
                 java.lang.String filter = "";
-                java.lang.String idUser = session.getAttribute("idUser").toString();
-                java.lang.String token = session.getAttribute("token").toString();
+                
                 if (request.getParameter("search") != null){
+                    
                     search = request.getParameter("search");
                     filter = request.getParameter("filter");
-                    
                 }
                 
                 // TODO process result here
-                
-                java.util.List<marketplaceservice.Product> result = port.viewproduct(username, password, search, filter, idUser, idUser, token);
+                java.util.List<marketplaceservice.Product> result = port.viewproduct(username, password,search,filter);
                 String usernama;
                 String img_path;
                 String nama_barang;
@@ -72,7 +69,7 @@
                     out.println("<hr>");
                     out.println("<div class=\"content\">");
                     out.println("<div class=\"image\">");
-                    out.println("<img src=\"img\\" + result.get(i).getImgpath()+"\" />");
+                    out.println("<img src=\"" + result.get(i).getImgpath()+"\" />");
                     out.println("</div>");
                     out.println("<div class=\"description\">");
                     out.println("<div class=\"head\"><b>" + result.get(i).getNamabarang() + " </b><br></div>");
@@ -83,12 +80,6 @@
                     out.println("<br>");
                     out.println("<span id=\"like$idKatalog\">" + result.get(i).getJumlahlike() +"</span> likes <br>");
                     out.println(result.get(i).getJumlahbeli() + " purchases <br> <br>");
-                    if(result.get(i).isIsLiked()) {
-                        out.println("<a class=\"two\" href=\"unlike?idKatalog=" + result.get(i).getIdKatalog() +"&idUser=" + session.getAttribute("idUser").toString() + "\">DISLIKE</a>");
-                    }
-                    else {
-                        out.println("<a class=\"one\" href=\"like?idKatalog=" + result.get(i).getIdKatalog() +"&idUser=" + session.getAttribute("idUser").toString() + "\">LIKE</a>");
-                    }
                     out.println("</div>");
                     out.println("<div style = \"clear:both\"></div>");
                     out.println("<hr>");
@@ -98,9 +89,12 @@
             } catch (Exception ex) {
                 // TODO handle custom exceptions here
             }
-            %>
-    </div>
-           
+                    %>
+
+            
+
+
+        
     </body>
 </html>
 

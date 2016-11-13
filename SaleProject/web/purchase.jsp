@@ -29,11 +29,8 @@
                     marketplaceservice.MarketplaceService port = service.getMarketplaceServicePort();
                      // TODO initialize WS operation arguments here
                     String idUser = session.getAttribute("idUser").toString();
-                    java.lang.String idUserValidate = session.getAttribute("idUser").toString();
-                    java.lang.String token = session.getAttribute("token").toString();
-
                     // TODO process result here
-                    java.util.List<marketplaceservice.Buy> result = port.beli(idUser,idUserValidate, token);
+                    java.util.List<marketplaceservice.Buy> result = port.beli(idUser);
                     if (result.size() > 0) {
                         for (int i = 0; i < result.size(); i++) {
                             out.println("<div>");
